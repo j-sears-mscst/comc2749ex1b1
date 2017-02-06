@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jsearsEx1b1PurchaseOrder", "jsearsEx1b1PurchaseOrder.csproj", "{7D61A32C-0F21-453F-A981-BD8E5A3A5304}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jsearsEx1b1AdventureWorksDNN_EF", "..\..\..\..\COMC2749\jsears2749ex1b1\jsearsEx1b1AdventureWorksDNN_EF\jsearsEx1b1AdventureWorksDNN_EF\jsearsEx1b1AdventureWorksDNN_EF.csproj", "{B6100E5F-AD6F-41B4-B936-22D9D6336FA8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7D61A32C-0F21-453F-A981-BD8E5A3A5304}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D61A32C-0F21-453F-A981-BD8E5A3A5304}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D61A32C-0F21-453F-A981-BD8E5A3A5304}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D61A32C-0F21-453F-A981-BD8E5A3A5304}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6100E5F-AD6F-41B4-B936-22D9D6336FA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6100E5F-AD6F-41B4-B936-22D9D6336FA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6100E5F-AD6F-41B4-B936-22D9D6336FA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6100E5F-AD6F-41B4-B936-22D9D6336FA8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
