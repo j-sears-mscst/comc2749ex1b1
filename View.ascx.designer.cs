@@ -85,13 +85,13 @@ namespace Christoc.Modules.jsearsEx1b1PurchaseOrder {
         protected global::System.Web.UI.WebControls.TextBox revisionNumberTextBox;
         
         /// <summary>
-        /// Label5 control.
+        /// statusLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label5;
+        protected global::System.Web.UI.WebControls.Label statusLabel;
         
         /// <summary>
         /// statusTextBox control.
@@ -101,6 +101,15 @@ namespace Christoc.Modules.jsearsEx1b1PurchaseOrder {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox statusTextBox;
+        
+        /// <summary>
+        /// employeeImage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image employeeImage;
         
         /// <summary>
         /// Label4 control.
@@ -130,13 +139,13 @@ namespace Christoc.Modules.jsearsEx1b1PurchaseOrder {
         protected global::System.Web.UI.WebControls.Label Label7;
         
         /// <summary>
-        /// orderDateCalendar control.
+        /// orderDateTextBox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Calendar orderDateCalendar;
+        protected global::System.Web.UI.WebControls.TextBox orderDateTextBox;
         
         /// <summary>
         /// Label6 control.
@@ -148,13 +157,13 @@ namespace Christoc.Modules.jsearsEx1b1PurchaseOrder {
         protected global::System.Web.UI.WebControls.Label Label6;
         
         /// <summary>
-        /// shipppingDateCalendar control.
+        /// shipDateTextBox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Calendar shipppingDateCalendar;
+        protected global::System.Web.UI.WebControls.TextBox shipDateTextBox;
         
         /// <summary>
         /// Label8 control.

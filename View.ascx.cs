@@ -20,7 +20,7 @@ using System.Collections.Generic;
 using System.Linq;
 using jsearsEx1b1AdventureWorksDNN_EF.Model;
 using System.Web.UI.WebControls;
-
+using System.Web.UI;
 
 namespace Christoc.Modules.jsearsEx1b1PurchaseOrder
 {
@@ -263,10 +263,13 @@ namespace Christoc.Modules.jsearsEx1b1PurchaseOrder
             this.statusTextBox.Text = string.Empty;
             this.employeeDropDownList.SelectedIndex = -1;
 
-            this.orderDateCalendar.SelectedDates.Clear();
-            this.orderDateCalendar.VisibleDate = DateTime.Now;
-            this.shipppingDateCalendar.SelectedDates.Clear();
-            this.shipppingDateCalendar.VisibleDate = DateTime.Now;
+            //this.orderDateCalendar.SelectedDates.Clear();
+            //this.orderDateCalendar.VisibleDate = DateTime.Now;
+            orderDateTextBox.Text = DateTime.Now.ToShortDateString();
+
+            //this.shipppingDateCalendar.SelectedDates.Clear();
+            //this.shipppingDateCalendar.VisibleDate = DateTime.Now;
+            shipDateTextBox.Text = string.Empty;
 
             this.shipperDropDownList.SelectedIndex = -1;
             // this.detailsLabel.Text = string.Empty;
@@ -279,18 +282,28 @@ namespace Christoc.Modules.jsearsEx1b1PurchaseOrder
 
         protected void fillPurchaseOrderControls(PurchaseOrderHeader purchaseOrderHeader)
         {
+           
             this.revisionNumberTextBox.Text = purchaseOrderHeader.RevisionNumber.ToString();
             this.statusTextBox.Text = purchaseOrderHeader.Status.ToString();
             this.employeeDropDownList.SelectedValue = purchaseOrderHeader.EmployeeID.ToString();
-            this.orderDateCalendar.SelectedDate = purchaseOrderHeader.OrderDate;
-            this.orderDateCalendar.VisibleDate = purchaseOrderHeader.OrderDate;
-            this.shipppingDateCalendar.SelectedDates.Clear();
-            this.shipppingDateCalendar.VisibleDate = DateTime.Now;
 
+            //this.orderDateCalendar.SelectedDate = purchaseOrderHeader.OrderDate;
+            //this.orderDateCalendar.VisibleDate = purchaseOrderHeader.OrderDate;
+            orderDateTextBox.Text = purchaseOrderHeader.OrderDate.ToShortDateString();
+            //this.shipppingDateCalendar.SelectedDates.Clear();
+            //this.shipppingDateCalendar.VisibleDate = DateTime.Now;
+
+            //if (purchaseOrderHeader.ShipDate != null)
+            //{
+            //    shipppingDateCalendar.SelectedDate = (DateTime)purchaseOrderHeader.ShipDate;
+            //    shipppingDateCalendar.VisibleDate = (DateTime)purchaseOrderHeader.ShipDate;
+            //}
+
+            shipDateTextBox.Text = string.Empty;
             if (purchaseOrderHeader.ShipDate != null)
             {
-                shipppingDateCalendar.SelectedDate = (DateTime)purchaseOrderHeader.ShipDate;
-                shipppingDateCalendar.VisibleDate = (DateTime)purchaseOrderHeader.ShipDate;
+                shipDateTextBox.Text = ((DateTime)purchaseOrderHeader.ShipDate).ToShortDateString();
+                //shipppingDateCalendar.VisibleDate = (DateTime)purchaseOrderHeader.ShipDate;
             }
 
             //  this.shipppingDateCalendar.SelectedDate = purchaseOrderHeader.OrderDate;
@@ -302,11 +315,27 @@ namespace Christoc.Modules.jsearsEx1b1PurchaseOrder
             this.freightTextBox.Text = purchaseOrderHeader.Freight.ToString("n2");
             this.totalLabel.Text = (purchaseOrderHeader.SubTotal + purchaseOrderHeader.Freight + purchaseOrderHeader.TaxAmt).ToString("n2");
 
+            this.employeeImage.ImageUrl = PortalSettings.HomeDirectory
+                + "empImages/emp"
+                + purchaseOrderHeader.EmployeeID.ToString("000")
+                + ".png";
+
+            //  Enable Add OrderDetail Control (Plus (+) Sign)
+
+
+
+            Control headerTemplate = this.orderDetailsGridView.Controls[0].Controls[0];
+            HyperLink insertOrderDetailHyperLink = (HyperLink)headerTemplate.FindControl("insertOrderDetailHyperLink");
+            insertOrderDetailHyperLink.NavigateUrl =
+                "javascript:dnnModal.show('/Ex1E-Purchase-Order?popUp=true&poDetailID=-1&poID="
+                + purchaseOrderHeader.PurchaseOrderID.ToString()
+                + "&returnPath=/Ex1E-Purchase-Order',false,600,900,true)";
+
+
         }
 
         protected void saveButton_Click(object sender, EventArgs e)
         {
-
             messageLabel.Text = String.Empty;
             messageLabel.CssClass = "control-label";
 
@@ -319,18 +348,28 @@ namespace Christoc.Modules.jsearsEx1b1PurchaseOrder
                 purchaseOrderHeader.RevisionNumber = byte.Parse(revisionNumberTextBox.Text);
                 purchaseOrderHeader.Status = byte.Parse(statusTextBox.Text);
                 purchaseOrderHeader.EmployeeID = int.Parse(employeeDropDownList.SelectedValue);
-                purchaseOrderHeader.OrderDate = orderDateCalendar.SelectedDate;
+
+                //purchaseOrderHeader.OrderDate = orderDateCalendar.SelectedDate;
+                purchaseOrderHeader.setOrderAndShipDates(orderDateTextBox.Text, shipDateTextBox.Text);
+                DateTime ordDate = DateTime.Now.Date;
+                DateTime.TryParse(orderDateTextBox.Text, out ordDate);
+                purchaseOrderHeader.OrderDate = ordDate;
+
                 purchaseOrderHeader.ShipMethodID = int.Parse(shipperDropDownList.SelectedValue);
                 purchaseOrderHeader.SubTotal = decimal.Parse(subtotalLabel.Text);
                 purchaseOrderHeader.TaxAmt = decimal.Parse(taxLabel.Text);
                 purchaseOrderHeader.Freight = decimal.Parse(freightTextBox.Text);
 
-                if (shipppingDateCalendar.SelectedDates.Count > 0)
-                {
+                DateTime shipDate = DateTime.Now.Date;
+                DateTime.TryParse(shipDateTextBox.Text, out shipDate);
+                purchaseOrderHeader.ShipDate = shipDate;
 
-                    purchaseOrderHeader.ShipDate = shipppingDateCalendar.SelectedDate;
+                //if (shipppingDateCalendar.SelectedDates.Count > 0)
+                //{
 
-                }
+                //    purchaseOrderHeader.ShipDate = shipppingDateCalendar.SelectedDate;
+
+                //}
 
                 int countChanges = Company.saveChanges();
 
@@ -455,6 +494,21 @@ namespace Christoc.Modules.jsearsEx1b1PurchaseOrder
 
 
             }
+        }
+
+        //protected void employeeDropDownList_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+
+       
+
+        //}
+
+        protected void employeeDropDownList_SelectedIndexChanged1(object sender, EventArgs e)
+        {
+            this.employeeImage.ImageUrl = PortalSettings.HomeDirectory
+                  + "empImages/emp"
+                  + employeeDropDownList.SelectedValue
+                  + ".png";
         }
     }
 }
